@@ -21,5 +21,12 @@
         <li><a href="#">feedack</a></li>
     </ul>
     </nav>
+    <div>
+        <% users.map((user)=>{ %>
+            <h1> <%= user.name %> </h1>
+            <p> <%= user.email %> </p>
+            <small> <%= user.password %> </small>
+        <% }) %>
+    </div>
 </body>
 </html>

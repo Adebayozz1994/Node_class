@@ -4,7 +4,28 @@ const ejs = require("ejs")
 const express = require("express")
 const app = express()
 const PORT = 5000
+const mongoose = require("mongoose")
+const uri = "mongodb+srv://Adebayozz:Peterzz1994@cluster0.72sjynx.mongodb.net/?retryWrites=true&w=majority"
 
+
+//  connet your mongooss to Node.js
+mongoose.connect(uri)
+.then((response)=>{
+    console.log("connected to database successfully");
+})
+.catch((err)=>{
+    console.log(err);
+    console.log("There is an error in the database");
+})
+
+//  schema is use to structure the database collection
+let studentSchema = mongoose.Schema({
+    name:String,
+    email:{type: String, required:true, unique:true},
+    password:{type:String, required:true, unique:true}
+})
+
+const studentModel = mongoose.model("students", studentSchema)
 
 
 
@@ -50,6 +71,8 @@ app.post("/register",(req, res)=>{
     users.push(req.body)
     console.log(users);
     res.redirect("/navBar")
+    let student = new studentModel(req.body)
+    student.save()
 })
 
 app.listen(PORT, (err)=>{
@@ -58,4 +81,5 @@ app.listen(PORT, (err)=>{
     }else{
         console.log("i am running on port 5000");
     }
-})
+});
+  

@@ -22,11 +22,25 @@
     </ul>
     </nav>
     <div>
-        <% users.map((user)=>{ %>
-            <h1> <%= user.name %> </h1>
-            <p> <%= user.email %> </p>
-            <small> <%= user.password %> </small>
-        <% }) %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.map((user) => { %>
+                    <tr>
+                        <td><%= user.name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.password %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
     </div>
+    
 </body>
 </html>

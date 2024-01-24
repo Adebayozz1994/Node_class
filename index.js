@@ -33,18 +33,7 @@ app.set("view engine", "ejs")
 app.use( express.static("public"))
 app.use(express.urlencoded({extended:true}))
 
-let users = [
-    {
-        name:"adebayo",
-        email:"adebayo@gmail.com",
-        password:"123456"
-    },
-    {
-        name:"adebayo",
-        email:"adebayo@gmail.com",
-        password:"123456"
-    }
-]
+let users = []
 
 
 app.get("/", (req, res)=>{
@@ -57,7 +46,16 @@ app.get("/welcome", (req, res)=>{
     res.render("welcome");
 })
 app.get("/navbar", (req, res)=>{
-    res.render("navBar",{users:users});
+    // res.render("navBar",{users:users});
+    studentModel.find({})
+    .then((allstudent)=>{
+        console.log(user);
+        res.render("navBar",{users:allstudent});
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+    
 })
 app.get("/signup", (req, res)=>{
     res.render("signUp");
@@ -66,6 +64,7 @@ app.get("/signup", (req, res)=>{
 app.get("/login", (req, res)=>{
     res.sendFile(__dirname + "/login.html");
 })
+
 app.post("/register",(req, res)=>{
     console.log(req.body);
     users.push(req.body)
@@ -73,6 +72,7 @@ app.post("/register",(req, res)=>{
     res.redirect("/navBar")
     let student = new studentModel(req.body)
     student.save()
+    
 })
 
 app.listen(PORT, (err)=>{

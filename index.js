@@ -49,7 +49,7 @@ app.get("/navbar", (req, res)=>{
     // res.render("navBar",{users:users});
     studentModel.find({})
     .then((allstudent)=>{
-        console.log(user);
+        console.log(users);
         res.render("navBar",{users:allstudent});
     })
     .catch((err)=>{
